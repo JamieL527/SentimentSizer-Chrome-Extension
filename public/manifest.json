@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "My Favorite Websites Chrome Extension",
+  "version": "1.0",
+  "description": "This Chrome extension allows users to resize the popup window and manage quick access to favorite websites.",
+  "action": {
+    "default_icon": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "system.display",
+    "tabs"
+  ],
+  "background": {
+    "service_worker": "scripts/background.js"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "settings.html",
+        "help.html",
+        "globals.css",
+        "scripts/settings.js",
+        "scripts/help.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
+
+
+
+  
+  
+  
+  
+  
