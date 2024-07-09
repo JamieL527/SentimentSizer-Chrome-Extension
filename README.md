@@ -5,6 +5,7 @@ This Chrome extension allows users to resize the popup window and manage quick a
 
 ## Features
 **Quick Access:** Directly access frequently visited sites.
+**Resize the popup window:** Users can click on the 'Settings' button to navigate to a settings page. Here, they can adjust the extension popup size by specifying the height and width in the provided textboxes. After saving these settings, the popup window will resize accordingly the next time it is launched.
 
 ## Technologies Used
 - **Framework:** Next.js
