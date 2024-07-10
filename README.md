@@ -6,7 +6,7 @@ This Chrome extension combines AI-powered text sentiment analysis with the abili
 <p align="center">
   <img src="./screenshot3.jpg" alt="Screenshot 1" width="400"/>
   <img src="./screenshot2.jpg" alt="Screenshot 2" width="400"/>
-  <img src="./screenshot1.jpg" alt="Screenshot 3" width="400"/>
+  <img src="./screenshot1.jpg" alt="Screenshot 3" width="800"/>
 </p>
 
 ## Features
