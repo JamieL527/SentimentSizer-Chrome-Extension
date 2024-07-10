@@ -21,7 +21,7 @@ This Chrome extension combines AI-powered text sentiment analysis with the abili
 ## Installation
 To install and run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/JamieL527/SentimentSizer-Chrome-Extensionn.git`
+1. Clone the repository: `git clone https://github.com/JamieL527/SentimentSizer-Chrome-Extension.git`
 2. Navigate to the project directory.
 3. Install dependencies: `npm install`
 
