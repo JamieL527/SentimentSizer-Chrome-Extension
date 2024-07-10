@@ -482,12 +482,6 @@ var react = __webpack_require__(540);
 // EXTERNAL MODULE: ./node_modules/react-dom/index.js
 var react_dom = __webpack_require__(961);
 ;// CONCATENATED MODULE: ./src/app/page.tsx
-"use client";
-
-function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
-function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -496,81 +490,121 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 var Page = function Page() {
-  var _useState = (0,react.useState)([]),
+  var _useState = (0,react.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
-    sites = _useState2[0],
-    setSites = _useState2[1];
-  var _useState3 = (0,react.useState)(''),
+    value = _useState2[0],
+    setValue = _useState2[1];
+  var _useState3 = (0,react.useState)('temperature'),
     _useState4 = _slicedToArray(_useState3, 2),
-    newSite = _useState4[0],
-    setNewSite = _useState4[1];
-  (0,react.useEffect)(function () {
-    chrome.storage.sync.get(['quickAccessSites'], function (result) {
-      if (!chrome.runtime.lastError) {
-        setSites(result.quickAccessSites || []);
-      } else {
-        console.error(chrome.runtime.lastError);
-      }
-    });
-  }, []);
-  var addSite = function addSite() {
-    if (newSite.trim() !== '') {
-      var updatedSites = [].concat(_toConsumableArray(sites), [newSite.trim()]);
-      setSites(updatedSites);
-      setNewSite('');
-      chrome.storage.sync.set({
-        quickAccessSites: updatedSites
-      });
+    convertFrom = _useState4[0],
+    setConvertFrom = _useState4[1];
+  var _useState5 = (0,react.useState)('celsiusToFahrenheit'),
+    _useState6 = _slicedToArray(_useState5, 2),
+    convertTo = _useState6[0],
+    setConvertTo = _useState6[1];
+  var _useState7 = (0,react.useState)(0),
+    _useState8 = _slicedToArray(_useState7, 2),
+    convertedValue = _useState8[0],
+    setConvertedValue = _useState8[1];
+  var convertValue = function convertValue(inputValue, fromType, toType) {
+    switch (fromType) {
+      case 'temperature':
+        return convertTemperature(inputValue, toType);
+      case 'length':
+        return convertLength(inputValue, toType);
+      default:
+        return inputValue;
     }
   };
-  var removeSite = function removeSite(index) {
-    var updatedSites = _toConsumableArray(sites);
-    updatedSites.splice(index, 1);
-    setSites(updatedSites);
-    chrome.storage.sync.set({
-      quickAccessSites: updatedSites
-    });
+  var convertTemperature = function convertTemperature(inputValue, toType) {
+    switch (toType) {
+      case 'celsiusToFahrenheit':
+        return inputValue * 9 / 5 + 32;
+      case 'fahrenheitToCelsius':
+        return (inputValue - 32) * 5 / 9;
+      default:
+        return inputValue;
+    }
   };
-  var openSite = function openSite(url) {
-    chrome.tabs.create({
-      url: url
-    });
+  var convertLength = function convertLength(inputValue, toType) {
+    switch (toType) {
+      case 'metersToFeet':
+        return inputValue * 3.28084;
+      case 'feetToMeters':
+        return inputValue / 3.28084;
+      case 'inchesToCentimeters':
+        return inputValue * 2.54;
+      case 'centimetersToInches':
+        return inputValue / 2.54;
+      default:
+        return inputValue;
+    }
+  };
+  var handleInputChange = function handleInputChange(event) {
+    var inputValue = Number(event.target.value);
+    setValue(inputValue);
+    setConvertedValue(convertValue(inputValue, convertFrom, convertTo));
+  };
+  var handleConvertFromChange = function handleConvertFromChange(event) {
+    var fromType = event.target.value;
+    setConvertFrom(fromType);
+    if (fromType === 'temperature') {
+      setConvertTo('celsiusToFahrenheit');
+    } else {
+      setConvertTo('metersToFeet');
+    }
+    setConvertedValue(convertValue(value, fromType, convertTo));
+  };
+  var handleConvertToChange = function handleConvertToChange(event) {
+    var toType = event.target.value;
+    setConvertTo(toType);
+    setConvertedValue(convertValue(value, convertFrom, toType));
   };
   return /*#__PURE__*/react.createElement("div", null, /*#__PURE__*/react.createElement("header", null, /*#__PURE__*/react.createElement("img", {
     src: "./logo.png",
     alt: "Logo"
-  }), /*#__PURE__*/react.createElement("h1", null, "My Favorite Websites")), /*#__PURE__*/react.createElement("main", null, /*#__PURE__*/react.createElement("div", {
+  }), /*#__PURE__*/react.createElement("h1", null, "Unit Converter")), /*#__PURE__*/react.createElement("main", {
     className: "main-container"
   }, /*#__PURE__*/react.createElement("div", {
-    className: "card"
-  }, /*#__PURE__*/react.createElement("h2", null, "Quick Access"), /*#__PURE__*/react.createElement("ul", null, sites.map(function (site, index) {
-    return /*#__PURE__*/react.createElement("li", {
-      key: index
-    }, /*#__PURE__*/react.createElement("span", {
-      className: "site-link",
-      onClick: function onClick() {
-        return openSite(site);
-      }
-    }, site), /*#__PURE__*/react.createElement("button", {
-      className: "remove-button",
-      onClick: function onClick() {
-        return removeSite(index);
-      }
-    }, "\u2212"));
-  })), /*#__PURE__*/react.createElement("div", {
-    className: "input-container"
-  }, /*#__PURE__*/react.createElement("input", {
-    type: "text",
-    value: newSite,
-    onChange: function onChange(e) {
-      return setNewSite(e.target.value);
-    },
-    placeholder: "Add a new site",
-    className: "input-field"
-  }), /*#__PURE__*/react.createElement("button", {
-    onClick: addSite,
-    className: "btn"
-  }, "Add Site"))))), /*#__PURE__*/react.createElement("footer", {
+    className: "header-content"
+  }, /*#__PURE__*/react.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react.createElement("label", null, "Value:", /*#__PURE__*/react.createElement("input", {
+    type: "number",
+    className: "input-field",
+    value: value,
+    onChange: handleInputChange
+  }))), /*#__PURE__*/react.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react.createElement("label", null, "Convert from:", /*#__PURE__*/react.createElement("select", {
+    className: "input-field",
+    value: convertFrom,
+    onChange: handleConvertFromChange
+  }, /*#__PURE__*/react.createElement("option", {
+    value: "temperature"
+  }, "Temperature"), /*#__PURE__*/react.createElement("option", {
+    value: "length"
+  }, "Length")))), /*#__PURE__*/react.createElement("div", {
+    className: "input-group"
+  }, /*#__PURE__*/react.createElement("label", null, "Convert to:", /*#__PURE__*/react.createElement("select", {
+    className: "input-field",
+    value: convertTo,
+    onChange: handleConvertToChange
+  }, convertFrom === 'temperature' ? /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("option", {
+    value: "celsiusToFahrenheit"
+  }, "Celsius to Fahrenheit"), /*#__PURE__*/react.createElement("option", {
+    value: "fahrenheitToCelsius"
+  }, "Fahrenheit to Celsius")) : /*#__PURE__*/react.createElement(react.Fragment, null, /*#__PURE__*/react.createElement("option", {
+    value: "metersToFeet"
+  }, "Meters to Feet"), /*#__PURE__*/react.createElement("option", {
+    value: "feetToMeters"
+  }, "Feet to Meters"), /*#__PURE__*/react.createElement("option", {
+    value: "inchesToCentimeters"
+  }, "Inches to Centimeters"), /*#__PURE__*/react.createElement("option", {
+    value: "centimetersToInches"
+  }, "Centimeters to Inches"))))), /*#__PURE__*/react.createElement("div", {
+    className: "result-container"
+  }, /*#__PURE__*/react.createElement("p", null, "Converted value: ", convertedValue.toFixed(2))))), /*#__PURE__*/react.createElement("footer", {
     className: "footer"
   }, /*#__PURE__*/react.createElement("a", {
     href: "settings.html",

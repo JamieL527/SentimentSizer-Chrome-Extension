@@ -1,5 +1,5 @@
 {
-  "name": "my-favorite-websites-chrome-extension",
+  "name": "popup-resizer-chrome-extension",
   "version": "0.1.0",
   "private": true,
   "scripts": {

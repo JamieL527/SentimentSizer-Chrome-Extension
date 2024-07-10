@@ -552,7 +552,7 @@ var SettingsPage = function SettingsPage() {
   }, /*#__PURE__*/react.createElement("div", {
     className: "card"
   }, /*#__PURE__*/react.createElement("div", {
-    className: "mt-4 input-container"
+    className: "input-group"
   }, /*#__PURE__*/react.createElement("label", {
     className: "block mb-2"
   }, "Popup Width:"), /*#__PURE__*/react.createElement("input", {
@@ -561,9 +561,9 @@ var SettingsPage = function SettingsPage() {
     onChange: function onChange(e) {
       return setWidth(e.target.value);
     },
-    className: "p-2 border rounded input-field"
+    className: "input-field"
   })), /*#__PURE__*/react.createElement("div", {
-    className: "mt-4 input-container"
+    className: "input-group"
   }, /*#__PURE__*/react.createElement("label", {
     className: "block mb-2"
   }, "Popup Height:"), /*#__PURE__*/react.createElement("input", {
@@ -572,7 +572,7 @@ var SettingsPage = function SettingsPage() {
     onChange: function onChange(e) {
       return setHeight(e.target.value);
     },
-    className: "p-2 border rounded input-field"
+    className: "input-field"
   })), /*#__PURE__*/react.createElement("button", {
     onClick: saveSettings,
     className: "btn mt-4",

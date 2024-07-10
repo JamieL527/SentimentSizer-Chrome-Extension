@@ -1,11 +1,13 @@
-# My Chrome Extension
+## Popup Resizer Chrome Extension
 
 ## Description
-This Chrome extension allows users to resize the popup window and manage quick access to favorite websites.
+This Chrome extension allows users to conveniently convert various units such as temperature and length, as well as resize the popup window for enhanced usability.
+
+![Screenshot](./screenshot.jpg)
 
 ## Features
-**Quick Access:** Directly access frequently visited sites.
-**Resize the popup window:** Users can click on the 'Settings' button to navigate to a settings page. Here, they can adjust the extension popup size by specifying the height and width in the provided textboxes. After saving these settings, the popup window will resize accordingly the next time it is launched.
+**Convert Units:** Convert between different units like temperature and length directly in your browser.
+**Resize popup window:** Navigate to the 'Settings' page through the 'Settings' button, where you can specify the desired height and width for the popup window. Save your settings to see the changes applied the next time you open the extension.
 
 ## Technologies Used
 - **Framework:** Next.js
@@ -15,7 +17,7 @@ This Chrome extension allows users to resize the popup window and manage quick a
 ## Installation
 To install and run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/JamieL527/My-Favorite-Websites-Chrome-Extension.git`
+1. Clone the repository: `git clone https://github.com/JamieL527/Popup-Resizer-Chrome-Extension.git`
 2. Navigate to the project directory.
 3. Install dependencies: `npm install`
 

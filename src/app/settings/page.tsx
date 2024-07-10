@@ -48,24 +48,25 @@ const SettingsPage: React.FC = () => {
       <main className="main flex justify-center items-center">
         <div className="main-container">
           <div className="card">
-            <div className="mt-4 input-container">
+            <div className="input-group">
               <label className="block mb-2">Popup Width:</label>
               <input
                 type="text"
                 value={width}
                 onChange={(e) => setWidth(e.target.value)}
-                className="p-2 border rounded input-field"
+                className="input-field"
               />
             </div>
-            <div className="mt-4 input-container">
+            <div className="input-group">
               <label className="block mb-2">Popup Height:</label>
               <input
-                type="text"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-                className="p-2 border rounded input-field"
+               type="text"
+               value={height}
+               onChange={(e) => setHeight(e.target.value)}
+               className="input-field"
               />
             </div>
+
             <button
               onClick={saveSettings}
               className="btn mt-4"

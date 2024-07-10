@@ -2,8 +2,8 @@
 import React from 'react'; 
 import './globals.css';
 export const metadata = {
-  title: 'My Favorite Websites Chrome Extension',
-  description: 'This Chrome extension allows users to resize the popup window and manage quick access to favorite websites.',
+  title: 'Popup Resizer Chrome Extension',
+  description: 'This Chrome extension allows users to resize the popup window and convert various units.',
 }
 
 export default function RootLayout({

@@ -1,69 +1,116 @@
-"use client";
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Page: React.FC = () => {
-  const [sites, setSites] = useState<string[]>([]);
-  const [newSite, setNewSite] = useState<string>('');
+  const [value, setValue] = useState<number>(0);
+  const [convertFrom, setConvertFrom] = useState<string>('temperature');
+  const [convertTo, setConvertTo] = useState<string>('celsiusToFahrenheit');
+  const [convertedValue, setConvertedValue] = useState<number>(0);
 
-  useEffect(() => {
-    chrome.storage.sync.get(['quickAccessSites'], (result) => {
-      if (!chrome.runtime.lastError) {
-        setSites(result.quickAccessSites || []);
-      } else {
-        console.error(chrome.runtime.lastError);
-      }
-    });
-  }, []);
-
-  const addSite = () => {
-    if (newSite.trim() !== '') {
-      const updatedSites = [...sites, newSite.trim()];
-      setSites(updatedSites);
-      setNewSite('');
-      chrome.storage.sync.set({ quickAccessSites: updatedSites });
+  const convertValue = (inputValue: number, fromType: string, toType: string) => {
+    switch (fromType) {
+      case 'temperature':
+        return convertTemperature(inputValue, toType);
+      case 'length':
+        return convertLength(inputValue, toType);
+      default:
+        return inputValue;
     }
   };
 
-  const removeSite = (index: number) => {
-    const updatedSites = [...sites];
-    updatedSites.splice(index, 1);
-    setSites(updatedSites);
-    chrome.storage.sync.set({ quickAccessSites: updatedSites });
+  const convertTemperature = (inputValue: number, toType: string) => {
+    switch (toType) {
+      case 'celsiusToFahrenheit':
+        return (inputValue * 9) / 5 + 32;
+      case 'fahrenheitToCelsius':
+        return ((inputValue - 32) * 5) / 9;
+      default:
+        return inputValue;
+    }
   };
 
-  const openSite = (url: string) => {
-    chrome.tabs.create({ url });
+  const convertLength = (inputValue: number, toType: string) => {
+    switch (toType) {
+      case 'metersToFeet':
+        return inputValue * 3.28084;
+      case 'feetToMeters':
+        return inputValue / 3.28084;
+      case 'inchesToCentimeters':
+        return inputValue * 2.54;
+      case 'centimetersToInches':
+        return inputValue / 2.54;
+      default:
+        return inputValue;
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = Number(event.target.value);
+    setValue(inputValue);
+    setConvertedValue(convertValue(inputValue, convertFrom, convertTo));
+  };
+
+  const handleConvertFromChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const fromType = event.target.value;
+    setConvertFrom(fromType);
+    if (fromType === 'temperature') {
+      setConvertTo('celsiusToFahrenheit');
+    } else {
+      setConvertTo('metersToFeet');
+    }
+    setConvertedValue(convertValue(value, fromType, convertTo));
+  };
+
+  const handleConvertToChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const toType = event.target.value;
+    setConvertTo(toType);
+    setConvertedValue(convertValue(value, convertFrom, toType));
   };
 
   return (
     <div>
       <header>
         <img src="./logo.png" alt="Logo" />
-        <h1>My Favorite Websites</h1>
+        <h1>Unit Converter</h1>
       </header>
-      <main>
-        <div className="main-container">
-          <div className="card">
-            <h2>Quick Access</h2>
-            <ul>
-              {sites.map((site, index) => (
-                <li key={index}>
-                  <span className="site-link" onClick={() => openSite(site)}>{site}</span>
-                  <button className="remove-button" onClick={() => removeSite(index)}>−</button>
-                </li>
-              ))}
-            </ul>
-            <div className="input-container">
-              <input
-                type="text"
-                value={newSite}
-                onChange={(e) => setNewSite(e.target.value)}
-                placeholder="Add a new site"
-                className="input-field"
-              />
-              <button onClick={addSite} className="btn">Add Site</button>
-            </div>
+      <main className="main-container">
+        <div className="header-content">
+          <div className="input-group">
+            <label>
+              Value:
+              <input type="number" className="input-field" value={value} onChange={handleInputChange} />
+            </label>
+          </div>
+          <div className="input-group">
+            <label>
+              Convert from:
+              <select className="input-field" value={convertFrom} onChange={handleConvertFromChange}>
+                <option value="temperature">Temperature</option>
+                <option value="length">Length</option>
+              </select>
+            </label>
+          </div>
+          <div className="input-group">
+            <label>
+              Convert to:
+              <select className="input-field" value={convertTo} onChange={handleConvertToChange}>
+                {convertFrom === 'temperature' ? (
+                  <>
+                    <option value="celsiusToFahrenheit">Celsius to Fahrenheit</option>
+                    <option value="fahrenheitToCelsius">Fahrenheit to Celsius</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="metersToFeet">Meters to Feet</option>
+                    <option value="feetToMeters">Feet to Meters</option>
+                    <option value="inchesToCentimeters">Inches to Centimeters</option>
+                    <option value="centimetersToInches">Centimeters to Inches</option>
+                  </>
+                )}
+              </select>
+            </label>
+          </div>
+          <div className="result-container">
+            <p>Converted value: {convertedValue.toFixed(2)}</p>
           </div>
         </div>
       </main>
@@ -76,6 +123,27 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
