@@ -33,13 +33,15 @@ main {
 .main-container {
   width: 90%;
   max-width: 40rem; 
-  margin: 2rem auto 0; 
+  margin: 2rem auto; 
   padding: 1rem;
   box-sizing: border-box;
   border: 1px solid #ccc; 
   border-radius: 0.5rem; 
   background-color: #f9f9f9; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  overflow-y: auto; /* 添加滚动条 */
+  max-height: calc(100vh - 200px); /* 使用视窗高度减去页头和页脚的高度 */
 }
 
 .header-content {
@@ -61,7 +63,7 @@ main {
   margin-bottom: 5px;
 }
 
-.input-group select {
+.input-group select, .input-group input, .input-group textarea {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 0.25rem;
@@ -69,18 +71,13 @@ main {
   margin-bottom: 10px; 
 }
 
-.input-group input{
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
+.input-group input {
   width: calc(100% - 20px); 
-  margin-bottom: 10px;
 }
 
 .result-container {
-  margin-top: 1rem;
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #333;
 }
 
@@ -132,4 +129,50 @@ main {
 
 .btn:hover {
   background: linear-gradient(to right, #5b9fdf, #800080);
+}
+
+/* Styles for Text Summarizer */
+.textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-bottom: 10px;
+  margin-right: 10px
+}
+
+.summarize-button {
+  display: inline-block;
+  padding: 0.5rem 0.5rem;
+  margin-top: 1rem;
+  background: linear-gradient(to right, #5b9fdf, #800080);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s;
+}
+
+.summarize-button:hover {
+  background: linear-gradient(to right, #5b9fdf, #800080);
+}
+
+.result-container {
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.result-container h2,
+.result-container p {
+  font-weight: normal; /* 将所有内容设为普通字体 */
+  margin: 0.5rem 0; /* 添加一些上下间距 */
+}
+
+.result-container .label {
+  font-weight: bold; /* 将标签部分设为黑体 */
+}
+
+.result-container .paragraph-with-margin {
+  margin-bottom: 10px;
 }

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Popup Resizer Chrome Extension",
+  "name": "SentimentSizer Chrome Extensionn",
   "version": "1.0",
-  "description": "This Chrome extension allows users to resize the popup window and convert various units.",
+  "description": "This Chrome extension allows users to resize the popup window and analyze the sentiment of text.",
   "action": {
     "default_icon": "icon.png"
   },

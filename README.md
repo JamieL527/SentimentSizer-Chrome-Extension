@@ -1,12 +1,16 @@
-## Popup Resizer Chrome Extension
+## SentimentSizer Chrome Extensionn
 
 ## Description
-This Chrome extension allows users to conveniently convert various units such as temperature and length, as well as resize the popup window for enhanced usability.
+This Chrome extension combines AI-powered text sentiment analysis with the ability to conveniently resize the popup window for enhanced usability.
 
-![Screenshot](./screenshot.jpg)
+<p align="center">
+  <img src="./screenshot3.jpg" alt="Screenshot 1" width="400"/>
+  <img src="./screenshot2.jpg" alt="Screenshot 2" width="400"/>
+  <img src="./screenshot1.jpg" alt="Screenshot 3" width="400"/>
+</p>
 
 ## Features
-**Convert Units:** Convert between different units like temperature and length directly in your browser.
+**Text Sentiment Analysis:** Utilizes advanced AI algorithms to analyze the sentiment of text, categorizing it as positive, negative, or neutral.
 **Resize popup window:** Navigate to the 'Settings' page through the 'Settings' button, where you can specify the desired height and width for the popup window. Save your settings to see the changes applied the next time you open the extension.
 
 ## Technologies Used
@@ -17,7 +21,7 @@ This Chrome extension allows users to conveniently convert various units such as
 ## Installation
 To install and run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/JamieL527/Popup-Resizer-Chrome-Extension.git`
+1. Clone the repository: `git clone https://github.com/JamieL527/SentimentSizer-Chrome-Extensionn.git`
 2. Navigate to the project directory.
 3. Install dependencies: `npm install`
 

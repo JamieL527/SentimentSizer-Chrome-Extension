@@ -1,116 +1,66 @@
 import React, { useState } from 'react';
+import Sentiment from 'sentiment';
+
+const sentiment = new Sentiment();
 
 const Page: React.FC = () => {
-  const [value, setValue] = useState<number>(0);
-  const [convertFrom, setConvertFrom] = useState<string>('temperature');
-  const [convertTo, setConvertTo] = useState<string>('celsiusToFahrenheit');
-  const [convertedValue, setConvertedValue] = useState<number>(0);
+  const [text, setText] = useState<string>('');
+  const [analysis, setAnalysis] = useState<{ score: number, comparative: number, tokens: string[], words: string[] }>({
+    score: 0,
+    comparative: 0,
+    tokens: [],
+    words: []
+  });
 
-  const convertValue = (inputValue: number, fromType: string, toType: string) => {
-    switch (fromType) {
-      case 'temperature':
-        return convertTemperature(inputValue, toType);
-      case 'length':
-        return convertLength(inputValue, toType);
-      default:
-        return inputValue;
-    }
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
   };
 
-  const convertTemperature = (inputValue: number, toType: string) => {
-    switch (toType) {
-      case 'celsiusToFahrenheit':
-        return (inputValue * 9) / 5 + 32;
-      case 'fahrenheitToCelsius':
-        return ((inputValue - 32) * 5) / 9;
-      default:
-        return inputValue;
-    }
-  };
-
-  const convertLength = (inputValue: number, toType: string) => {
-    switch (toType) {
-      case 'metersToFeet':
-        return inputValue * 3.28084;
-      case 'feetToMeters':
-        return inputValue / 3.28084;
-      case 'inchesToCentimeters':
-        return inputValue * 2.54;
-      case 'centimetersToInches':
-        return inputValue / 2.54;
-      default:
-        return inputValue;
-    }
-  };
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = Number(event.target.value);
-    setValue(inputValue);
-    setConvertedValue(convertValue(inputValue, convertFrom, convertTo));
-  };
-
-  const handleConvertFromChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const fromType = event.target.value;
-    setConvertFrom(fromType);
-    if (fromType === 'temperature') {
-      setConvertTo('celsiusToFahrenheit');
-    } else {
-      setConvertTo('metersToFeet');
-    }
-    setConvertedValue(convertValue(value, fromType, convertTo));
-  };
-
-  const handleConvertToChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const toType = event.target.value;
-    setConvertTo(toType);
-    setConvertedValue(convertValue(value, convertFrom, toType));
+  const handleAnalyzeSentiment = () => {
+    const result = sentiment.analyze(text);
+    setAnalysis(result);
   };
 
   return (
     <div>
       <header>
         <img src="./logo.png" alt="Logo" />
-        <h1>Unit Converter</h1>
+        <h1>Text Sentiment Analyzer</h1>
       </header>
-      <main className="main-container">
+      <main className="main-container" >
         <div className="header-content">
           <div className="input-group">
-            <label>
-              Value:
-              <input type="number" className="input-field" value={value} onChange={handleInputChange} />
+          <label style={{ marginRight: '20px' }}>
+              Enter Text:
+              <textarea
+                className="input-field"
+                value={text}
+                onChange={handleInputChange}
+                style={{ width: '100%', height: '150px', marginBottom: '10px' ,resize: 'none'}}
+               />
             </label>
           </div>
-          <div className="input-group">
-            <label>
-              Convert from:
-              <select className="input-field" value={convertFrom} onChange={handleConvertFromChange}>
-                <option value="temperature">Temperature</option>
-                <option value="length">Length</option>
-              </select>
-            </label>
-          </div>
-          <div className="input-group">
-            <label>
-              Convert to:
-              <select className="input-field" value={convertTo} onChange={handleConvertToChange}>
-                {convertFrom === 'temperature' ? (
-                  <>
-                    <option value="celsiusToFahrenheit">Celsius to Fahrenheit</option>
-                    <option value="fahrenheitToCelsius">Fahrenheit to Celsius</option>
-                  </>
-                ) : (
-                  <>
-                    <option value="metersToFeet">Meters to Feet</option>
-                    <option value="feetToMeters">Feet to Meters</option>
-                    <option value="inchesToCentimeters">Inches to Centimeters</option>
-                    <option value="centimetersToInches">Centimeters to Inches</option>
-                  </>
-                )}
-              </select>
-            </label>
-          </div>
+          <button className="btn" onClick={handleAnalyzeSentiment}>
+            Analyze Sentiment
+          </button>
           <div className="result-container">
-            <p>Converted value: {convertedValue.toFixed(2)}</p>
+            <h2 className="label">Sentiment Analysis:</h2>
+            <p className="label">Score:</p>
+            <p>{analysis.score}</p>
+            <p className="label">Comparative:</p>
+            <p>{analysis.comparative}</p>
+            <p className="label">Tokens:</p>
+            <p>{analysis.tokens.join(', ')}</p>
+            <p className="label">Words:</p>
+            <p>{analysis.words.join(', ')}</p>
+          
+            <p className="paragraph-with-margin">
+              <em>
+                Score indicates the overall sentiment score (higher means more positive).
+                Comparative shows the relative positivity. Tokens and Words list key 
+                terms with emotional weight or importance.
+              </em>
+            </p>
           </div>
         </div>
       </main>
@@ -123,6 +73,17 @@ const Page: React.FC = () => {
 };
 
 export default Page;
+
+
+
+
+
+
+
+
+
+
+
 
 
 
